@@ -9,6 +9,7 @@ namespace Intersect.Server.Migrations.Sqlite.Player
             migrationBuilder.AddColumn<string>(
                 name: "Skills",
                 table: "Players",
+                type: "TEXT",
                 nullable: true);
         }
 
