@@ -1,0 +1,124 @@
+/* Retro Leaderboard Styling - Centered */
+article.page.list {
+    background: rgba(0, 0, 0, 0.5) !important;
+    border: 3px solid #8b4513 !important;
+    border-radius: 8px !important;
+    padding: 2rem !important;
+    box-shadow: 
+        0 0 20px rgba(139, 69, 19, 0.5),
+        inset 0 0 20px rgba(0, 0, 0, 0.3) !important;
+    max-width: 1200px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+}
+
+/* Add spacing and visual separation between player cards */
+article.page.list > article.player.card {
+    margin-bottom: 2.5rem !important;
+    position: relative;
+}
+
+/* Decorative divider between players */
+article.page.list > article.player.card:not(:last-child)::before {
+    content: '';
+    position: absolute;
+    bottom: -1.25rem;
+    left: 15%;
+    right: 15%;
+    height: 2px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(139, 69, 19, 0.4) 20%, 
+        rgba(139, 69, 19, 0.7) 50%, 
+        rgba(139, 69, 19, 0.4) 80%, 
+        transparent 100%
+    );
+    box-shadow: 
+        0 0 8px rgba(139, 69, 19, 0.4),
+        inset 0 0 4px rgba(255, 215, 0, 0.1);
+    border-radius: 2px;
+}
+
+article.page.list h2 {
+    color: #ffd700 !important;
+    font-size: 2.5rem !important;
+    text-align: center !important;
+    text-shadow: 
+        3px 3px 0px #000,
+        0 0 10px rgba(255, 215, 0, 0.8) !important;
+    margin-bottom: 2rem !important;
+    border-bottom: 2px solid #8b4513 !important;
+    padding-bottom: 1rem !important;
+    font-family: 'Courier New', monospace !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+}
+
+article.page.list h3 {
+    color: #d4af37 !important;
+    text-align: center !important;
+    font-family: 'Courier New', monospace !important;
+}
+
+/* Player Card Styling - Enhanced with prominent boxes */
+article.page.list article.player.card,
+article.page.list > article.player.card {
+    min-width: auto !important;
+    max-width: 1000px !important;
+    width: 95% !important;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(26, 26, 26, 0.75) 100%) !important;
+    border: 4px solid #8b4513 !important;
+    border-radius: 12px !important;
+    box-shadow: 
+        inset 0 0 25px rgba(0, 0, 0, 0.6),
+        0 8px 20px rgba(0, 0, 0, 0.7),
+        0 0 0 3px rgba(139, 69, 19, 0.4),
+        0 0 40px rgba(139, 69, 19, 0.3) !important;
+    padding: 0 !important;
+    margin: 0 auto 2.5rem auto !important;
+    transition: all 0.3s ease !important;
+    position: relative !important;
+}
+
+article.page.list article.player.card:hover,
+article.page.list > article.player.card:hover {
+    background: linear-gradient(135deg, rgba(139, 69, 19, 0.6) 0%, rgba(101, 50, 10, 0.5) 100%) !important;
+    border-color: #ffd700 !important;
+    border-width: 5px !important;
+    box-shadow: 
+        inset 0 0 30px rgba(0, 0, 0, 0.7),
+        0 0 40px rgba(255, 215, 0, 0.6),
+        0 12px 24px rgba(0, 0, 0, 0.8),
+        0 0 0 4px rgba(255, 215, 0, 0.3) !important;
+    transform: translateY(-5px) scale(1.03) !important;
+}
+
+/* Top 3 special styling */
+article.player.card:has(.rank-1) {
+    border-color: #ffd700 !important;
+    box-shadow: 
+        inset 0 0 20px rgba(255, 215, 0, 0.2),
+        0 0 25px rgba(255, 215, 0, 0.3),
+        0 6px 16px rgba(0, 0, 0, 0.6) !important;
+}
+
+article.player.card:has(.rank-2) {
+    border-color: #c0c0c0 !important;
+    box-shadow: 
+        inset 0 0 20px rgba(192, 192, 192, 0.2),
+        0 0 25px rgba(192, 192, 192, 0.3),
+        0 6px 16px rgba(0, 0, 0, 0.6) !important;
+}
+
+article.player.card:has(.rank-3) {
+    border-color: #cd7f32 !important;
+    box-shadow: 
+        inset 0 0 20px rgba(205, 127, 50, 0.2),
+        0 0 25px rgba(205, 127, 50, 0.3),
+        0 6px 16px rgba(0, 0, 0, 0.6) !important;
+}
+
