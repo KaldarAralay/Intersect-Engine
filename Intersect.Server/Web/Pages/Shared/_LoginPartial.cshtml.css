@@ -1,12 +1,14 @@
 img.avatar {
 	--size: 2em;
 
-	background-color: var(--theme-bg-accent-hover);
-	border: 0.125em solid var(--theme-text);
+	background-color: rgba(0, 0, 0, 0.3);
+	border: 2px solid #8b4513;
+	border-radius: 4px;
 	height: var(--size);
 	max-height: var(--size);
 	max-width: var(--size);
 	width: var(--size);
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 img.avatar, svg {
@@ -30,7 +32,7 @@ img.avatar+svg {
 img.avatar.hidden+svg {
 	border-color: transparent;
 	display: initial;
-	fill: currentColor;
+	fill: #d4af37;
 }
 
 svg>use {

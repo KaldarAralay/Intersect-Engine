@@ -5,6 +5,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval' 'unsafe-inline' https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com;"/>
     <meta
         name="htmx-config"
         historyCacheSize="20"
@@ -24,19 +25,62 @@
             }
         }
 
-        :root, body {
-            background: var(--theme-bg);
+        html {
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(139, 69, 19, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(101, 50, 10, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #0f1419 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #1a1a2e 100%) !important;
+            background-attachment: fixed !important;
+            min-height: 100vh !important;
         }
 
         body {
-            display:  none;
+            background: transparent !important;
+            color: #f4e4bc !important;
+            font-family: 'Courier New', monospace !important;
+            display: flex !important;
+            flex-direction: column !important;
+            min-height: 100vh !important;
+        }
+
+        header, footer {
+            background: linear-gradient(180deg, rgba(101, 50, 10, 0.95) 0%, rgba(139, 69, 19, 0.95) 50%, rgba(101, 50, 10, 0.95) 100%) !important;
+            border-bottom: 3px solid #8b4513 !important;
+            border-top: 2px solid #654321 !important;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 215, 0, 0.2) !important;
+        }
+
+        header h1 a {
+            color: #ffd700 !important;
+            text-shadow: 2px 2px 0px #000, 0 0 8px rgba(255, 215, 0, 0.6) !important;
+            font-family: 'Courier New', monospace !important;
+            text-transform: uppercase !important;
+            letter-spacing: 2px !important;
+        }
+
+        header nav a {
+            color: #d4af37 !important;
+            border: 1px solid #8b4513 !important;
+            background: rgba(0, 0, 0, 0.3) !important;
+            padding: 0.5rem 1rem !important;
+            border-radius: 4px !important;
+            text-transform: uppercase !important;
+        }
+
+        footer {
+            color: #d4af37 !important;
+        }
+
+        footer a {
+            color: #d4af37 !important;
         }
     </style>
 
     <link rel="stylesheet" href="~/css/theme.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
-    @* ReSharper disable once Html.PathError *@
-    <link rel="stylesheet" href="~/AscensionGameDev.Intersect.Server.styles.css" asp-append-version="true"/>
+    @* Scoped CSS bundle - generated at build time, may not exist during development *@
+    @* <link rel="stylesheet" href="~/AscensionGameDev.Intersect.Server.styles.css" asp-append-version="true"/> *@
+    @await RenderSectionAsync("Head", false)
     <script src="~/js/utils.js"></script>
     <script src="https://unpkg.com/htmx.org@1.9.2" defer></script>
     <script src="@HtmxAntiforgeryScriptEndpoints.Path" defer></script>
@@ -48,6 +92,9 @@
     </h1>
     <nav>
         <ul>
+            <li>
+                <a asp-page="/Leaderboard">Leaderboard</a>
+            </li>
             @if (User.IsEditor())
             {
                 <li>
