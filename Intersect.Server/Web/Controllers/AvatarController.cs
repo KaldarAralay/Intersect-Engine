@@ -8,6 +8,7 @@ using Intersect.Server.Web.Types;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
+using Microsoft.EntityFrameworkCore;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.Processing;
@@ -41,6 +42,30 @@ public class AvatarController(ILogger<AvatarController> logger) : IntersectContr
     private readonly DirectoryInfo _cacheDirectoryInfo =
         new(Path.Combine(Environment.CurrentDirectory, ".cache", "avatars"));
 
+    private static DirectoryInfo? ResolveAssetsDirectory()
+    {
+        // Try multiple possible locations
+        var possiblePaths = new[]
+        {
+            Path.Combine(Environment.CurrentDirectory, "assets", "editor", "resources"),
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "assets", "editor", "resources"),
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "assets", "editor", "resources"),
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "assets", "editor", "resources"),
+            "assets/editor/resources" // Original relative path for backward compatibility
+        };
+
+        foreach (var path in possiblePaths)
+        {
+            var directoryInfo = new DirectoryInfo(path);
+            if (directoryInfo.Exists)
+            {
+                return directoryInfo;
+            }
+        }
+
+        return null;
+    }
+
     [HttpGet("player/{lookupKey:LookupKey}")]
     [EndpointSummary($"{nameof(AvatarController)}_{nameof(GetPlayerAvatarAsync)}_Summary")]
     [EndpointDescription($"{nameof(AvatarController)}_{nameof(GetPlayerAvatarAsync)}_Description")]
@@ -50,10 +75,15 @@ public class AvatarController(ILogger<AvatarController> logger) : IntersectContr
     [ProducesResponseType(typeof(StatusMessageResponseBody), (int)HttpStatusCode.NotFound, ContentTypes.Json)]
     public async Task<IActionResult> GetPlayerAvatarAsync(LookupKey lookupKey)
     {
-        DirectoryInfo assetsDirectoryInfo = new("assets/editor/resources");
-        if (!assetsDirectoryInfo.Exists)
+        var assetsDirectoryInfo = ResolveAssetsDirectory();
+        if (assetsDirectoryInfo == null || !assetsDirectoryInfo.Exists)
         {
-            return InternalServerError("Error occurred while fetching the avatar");
+            logger.LogWarning(
+                "Avatar assets directory not found. Tried: {CurrentDirectory}/assets/editor/resources, {BaseDirectory}/assets/editor/resources, and relative path assets/editor/resources",
+                Environment.CurrentDirectory,
+                AppDomain.CurrentDomain.BaseDirectory
+            );
+            return InternalServerError("Error occurred while fetching the avatar - assets directory not found");
         }
 
         if (lookupKey.IsInvalid)
@@ -61,7 +91,39 @@ public class AvatarController(ILogger<AvatarController> logger) : IntersectContr
             return BadRequest($"Invalid lookup key: {lookupKey}");
         }
 
-        if (!Player.TryFetch(lookupKey, out var player))
+        // Use lightweight query with AsNoTracking to prevent memory leaks
+        // Player.TryFetch() returns tracked entities that stay in memory
+        Intersect.Server.Entities.Player? player = null;
+        try
+        {
+            using var context = Intersect.Server.Database.DbInterface.CreatePlayerContext();
+            var query = context.Players.AsQueryable();
+            
+            if (lookupKey.IsId)
+            {
+                player = query
+                    .Where(p => p.Id == lookupKey.Id)
+                    .AsNoTracking() // Critical: prevents tracking, allows GC
+                    .FirstOrDefault();
+            }
+            else if (lookupKey.IsName)
+            {
+                player = query
+                    .Where(p => p.Name == lookupKey.Name)
+                    .AsNoTracking() // Critical: prevents tracking, allows GC
+                    .FirstOrDefault();
+            }
+        }
+        catch
+        {
+            // If query fails, fall back to TryFetch (but this may track entities)
+            if (!Player.TryFetch(lookupKey, out player))
+            {
+                player = null;
+            }
+        }
+
+        if (player == null)
         {
             return NotFound($"Player not found for lookup key '{lookupKey}'");
         }
@@ -111,10 +173,15 @@ public class AvatarController(ILogger<AvatarController> logger) : IntersectContr
     [ProducesResponseType(typeof(StatusMessageResponseBody), (int)HttpStatusCode.NotFound, ContentTypes.Json)]
     public async Task<IActionResult> GetUserAvatarAsync(LookupKey lookupKey)
     {
-        DirectoryInfo assetsDirectoryInfo = new("assets/editor/resources");
-        if (!assetsDirectoryInfo.Exists)
+        var assetsDirectoryInfo = ResolveAssetsDirectory();
+        if (assetsDirectoryInfo == null || !assetsDirectoryInfo.Exists)
         {
-            return InternalServerError("Error occurred while fetching the avatar");
+            logger.LogWarning(
+                "Avatar assets directory not found. Tried: {CurrentDirectory}/assets/editor/resources, {BaseDirectory}/assets/editor/resources, and relative path assets/editor/resources",
+                Environment.CurrentDirectory,
+                AppDomain.CurrentDomain.BaseDirectory
+            );
+            return InternalServerError("Error occurred while fetching the avatar - assets directory not found");
         }
 
         if (lookupKey.IsInvalid)
