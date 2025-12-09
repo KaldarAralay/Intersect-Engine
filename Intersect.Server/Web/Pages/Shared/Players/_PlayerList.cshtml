@@ -4,9 +4,8 @@
 @model PlayerListModel
 
 @{
-    var playerCount = Intersect.Server.Entities.Player.Count();
-    // Use lightweight query to prevent memory leaks - only loads Guild, not all relationships
-    var players = PlayerListModel.GetRankedPlayersLightweight(Model.Page, Model.Count, Model.SortDirection).ToArray();
+    var playerCount = Player.Count();
+    var players = Player.Rank(Model.Page, Model.Count, Model.SortDirection).ToArray();
 
     var rankBase = Model.Page * Model.Count + 1;
     var rankScale = rankBase + players.Length;
