@@ -49,6 +49,139 @@
                 0 0 0 4px rgba(255, 215, 0, 0.3) !important;
             transform: translateY(-5px) scale(1.03) !important;
         }
+
+        /* FORCE CENTER ALL CONTENT INSIDE PLAYER CARDS */
+        article.player.card section.column.body,
+        article.page.list article.player.card section.column.body,
+        article.player.card .column.body,
+        article.page.list article.player.card .column.body {
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            align-items: center !important;
+            text-align: center !important;
+            margin: 0 auto !important;
+            width: 100% !important;
+        }
+
+        /* CENTER THE ENTIRE PLAYER HEADER CONTENT */
+        article.player.card section.column.body .player-header,
+        article.page.list article.player.card section.column.body .player-header {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 1rem !important;
+            margin: 0 auto 1.5rem auto !important;
+            padding-bottom: 1rem !important;
+            border-bottom: 2px solid rgba(139, 69, 19, 0.5) !important;
+            width: 100% !important;
+            text-align: center !important;
+        }
+
+        /* Center avatar container */
+        article.player.card section.column.body .player-header .avatar-container,
+        article.page.list article.player.card section.column.body .player-header .avatar-container {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            margin: 0 auto !important;
+            flex-shrink: 0 !important;
+        }
+
+        /* Center avatar image */
+        article.player.card section.column.body .player-header .avatar-container img.avatar,
+        article.page.list article.player.card section.column.body .player-header .avatar-container img.avatar {
+            display: block !important;
+            margin: 0 auto !important;
+        }
+
+        /* Center player info */
+        article.player.card section.column.body .player-header .player-info,
+        article.page.list article.player.card section.column.body .player-header .player-info {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+            width: 100% !important;
+        }
+
+        article.player.card section.column.body .player-info,
+        article.page.list article.player.card section.column.body .player-info,
+        article.player.card .column.body .player-info,
+        article.page.list article.player.card .column.body .player-info {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+            width: 100% !important;
+        }
+
+        article.player.card section.column.body .player-stats,
+        article.page.list article.player.card section.column.body .player-stats,
+        article.player.card .column.body .player-stats,
+        article.page.list article.player.card .column.body .player-stats {
+            display: grid !important;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+            gap: 1rem !important;
+            justify-items: center !important;
+            align-items: center !important;
+            width: 100% !important;
+            max-width: 600px !important;
+            margin: 0 auto !important;
+            text-align: center !important;
+        }
+
+        article.player.card section.column.body h3.player-name,
+        article.page.list article.player.card section.column.body h3.player-name {
+            text-align: center !important;
+            margin: 0 auto !important;
+            width: 100% !important;
+        }
+
+        article.player.card section.column.body .player-class,
+        article.page.list article.player.card section.column.body .player-class {
+            text-align: center !important;
+            width: 100% !important;
+        }
+
+        /* Center the rank section content */
+        article.player.card section.column.rank,
+        article.page.list article.player.card section.column.rank {
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-align: center !important;
+        }
+
+        article.player.card section.column.rank .rank-number,
+        article.page.list article.player.card section.column.rank .rank-number {
+            text-align: center !important;
+            margin: 0 auto !important;
+        }
+
+        article.player.card section.column.rank .rank-badge,
+        article.page.list article.player.card section.column.rank .rank-badge {
+            text-align: center !important;
+            margin: 0 auto !important;
+        }
+
+        /* Center the avatar */
+        article.player.card section.column.body .avatar-container,
+        article.page.list article.player.card section.column.body .avatar-container {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            margin: 0 auto !important;
+        }
+
+        article.player.card section.column.body .player-header .avatar-container,
+        article.page.list article.player.card section.column.body .player-header .avatar-container {
+            margin: 0 auto !important;
+        }
     </style>
 }
 

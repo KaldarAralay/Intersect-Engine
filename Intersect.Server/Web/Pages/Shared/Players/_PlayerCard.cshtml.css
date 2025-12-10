@@ -61,14 +61,17 @@ article.player>* {
 	padding: 1.5em;
 }
 
-article.player>.rank {
-	align-items: center;
+article.player>.rank,
+article.player.card section.column.rank,
+article.page.list article.player.card section.column.rank {
+	align-items: center !important;
 	background: linear-gradient(180deg, rgba(139, 69, 19, 0.7) 0%, rgba(101, 50, 10, 0.7) 100%) !important;
 	border-right: 3px solid #8b4513 !important;
 	color: #ffd700 !important;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
+	display: flex !important;
+	flex-direction: column !important;
+	justify-content: center !important;
+	text-align: center !important;
 	min-width: 5rem;
 	padding: 1.5rem 1rem !important;
 	position: relative;
@@ -84,7 +87,9 @@ article.player>.rank::after {
 	background: linear-gradient(180deg, transparent, rgba(255, 215, 0, 0.3), transparent);
 }
 
-article.player>.rank .rank-number {
+article.player>.rank .rank-number,
+article.player.card section.column.rank .rank-number,
+article.page.list article.player.card section.column.rank .rank-number {
 	font-size: 2rem !important;
 	font-weight: bold !important;
 	color: #ffd700 !important;
@@ -92,12 +97,19 @@ article.player>.rank .rank-number {
 		2px 2px 0px #000,
 		0 0 10px rgba(255, 215, 0, 0.8) !important;
 	font-family: 'Courier New', monospace !important;
-	margin-bottom: 0.5rem;
+	margin: 0 auto 0.5rem auto !important;
+	text-align: center !important;
+	width: 100% !important;
 }
 
-article.player>.rank .rank-badge {
-	font-size: 2rem;
-	line-height: 1;
+article.player>.rank .rank-badge,
+article.player.card section.column.rank .rank-badge,
+article.page.list article.player.card section.column.rank .rank-badge {
+	font-size: 2rem !important;
+	line-height: 1 !important;
+	text-align: center !important;
+	margin: 0 auto !important;
+	width: 100% !important;
 }
 
 article.player>.rank .rank-1 {
@@ -131,32 +143,96 @@ article.player>:not(.rank) {
 	flex: 1;
 }
 
-article.player .player-header {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: 1.5rem;
-	margin-bottom: 1.5rem;
-	padding-bottom: 1rem;
-	border-bottom: 2px solid rgba(139, 69, 19, 0.5);
+/* FORCE CENTER ALL CONTENT IN BODY SECTION */
+article.player.card section.column.body,
+article.player section.column.body,
+article.player .column.body,
+article.player.card .column.body {
+	display: flex !important;
+	flex-direction: column !important;
+	justify-content: center !important;
+	align-items: center !important;
+	text-align: center !important;
+	margin: 0 auto !important;
+	width: 100% !important;
 }
 
-article.player .player-info {
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-	gap: 0.5rem;
+article.player.card section.column.body > *,
+article.player section.column.body > *,
+article.player .column.body > *,
+article.player.card .column.body > * {
+	width: 100% !important;
+	max-width: 100% !important;
 }
 
-article.player h3.player-name {
-	margin: 0 !important;
+/* CENTER PLAYER HEADER - STACK AVATAR ABOVE PLAYER INFO */
+article.player .player-header,
+article.player.card .player-header,
+article.page.list article.player.card .player-header {
+	display: flex !important;
+	flex-direction: column !important;
+	align-items: center !important;
+	justify-content: center !important;
+	gap: 1rem !important;
+	margin: 0 auto 1.5rem auto !important;
+	padding-bottom: 1rem !important;
+	border-bottom: 2px solid rgba(139, 69, 19, 0.5) !important;
+	width: 100% !important;
+	text-align: center !important;
+}
+
+article.player .player-header .avatar-container,
+article.player.card .player-header .avatar-container,
+article.page.list article.player.card .player-header .avatar-container {
+	display: flex !important;
+	justify-content: center !important;
+	align-items: center !important;
+	margin: 0 auto !important;
+	flex-shrink: 0 !important;
+}
+
+article.player .player-header .avatar-container img.avatar,
+article.player.card .player-header .avatar-container img.avatar,
+article.page.list article.player.card .player-header .avatar-container img.avatar {
+	display: block !important;
+	margin: 0 auto !important;
+}
+
+article.player .player-header .player-info,
+article.player.card .player-header .player-info,
+article.page.list article.player.card .player-header .player-info {
+	display: flex !important;
+	flex-direction: column !important;
+	align-items: center !important;
+	justify-content: center !important;
+	text-align: center !important;
+	width: 100% !important;
+}
+
+article.player .player-info,
+article.player.card .player-info {
+	flex: 1 !important;
+	display: flex !important;
+	flex-direction: column !important;
+	gap: 0.5rem !important;
+	align-items: center !important;
+	justify-content: center !important;
+	text-align: center !important;
+	width: 100% !important;
+}
+
+article.player h3.player-name,
+article.player.card h3.player-name {
+	margin: 0 auto !important;
 	color: #ffd700 !important;
 	font-family: 'Courier New', monospace !important;
 	font-size: 1.5rem !important;
 	font-weight: bold !important;
+	text-align: center !important;
 	text-shadow: 
 		2px 2px 0px #000,
 		0 0 8px rgba(255, 215, 0, 0.6) !important;
+	width: 100% !important;
 }
 
 article.player h3.player-name a {
@@ -186,10 +262,17 @@ article.player .player-class {
 	opacity: 0.9;
 }
 
-article.player .player-stats {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-	gap: 1rem;
+article.player .player-stats,
+article.player.card .player-stats {
+	display: grid !important;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+	gap: 1rem !important;
+	justify-items: center !important;
+	align-items: center !important;
+	width: 100% !important;
+	max-width: 600px !important;
+	margin: 0 auto !important;
+	text-align: center !important;
 }
 
 article.player .stat-item {
@@ -247,9 +330,85 @@ article.card .column {
 	flex-direction: column;
 }
 
-article.player .avatar-container {
-	position: relative;
-	flex-shrink: 0;
+/* OVERRIDE ANY CONFLICTING STYLES - FORCE CENTER */
+article.player.card section.column.body,
+article.page.list article.player.card section.column.body,
+article.player.card .column.body,
+article.page.list article.player.card .column.body {
+	display: flex !important;
+	flex-direction: column !important;
+	justify-content: center !important;
+	align-items: center !important;
+	text-align: center !important;
+	margin: 0 auto !important;
+	width: 100% !important;
+}
+
+article.player.card section.column.body .player-header,
+article.page.list article.player.card section.column.body .player-header,
+article.player.card .column.body .player-header,
+article.page.list article.player.card .column.body .player-header {
+	display: flex !important;
+	flex-direction: row !important;
+	align-items: center !important;
+	justify-content: center !important;
+	gap: 1.5rem !important;
+	margin: 0 auto 1.5rem auto !important;
+	padding-bottom: 1rem !important;
+	border-bottom: 2px solid rgba(139, 69, 19, 0.5) !important;
+	width: 100% !important;
+	max-width: 100% !important;
+}
+
+article.player.card section.column.body .player-info,
+article.page.list article.player.card section.column.body .player-info,
+article.player.card .column.body .player-info,
+article.page.list article.player.card .column.body .player-info {
+	display: flex !important;
+	flex-direction: column !important;
+	align-items: center !important;
+	justify-content: center !important;
+	text-align: center !important;
+	width: 100% !important;
+}
+
+article.player.card section.column.body .player-stats,
+article.page.list article.player.card section.column.body .player-stats,
+article.player.card .column.body .player-stats,
+article.page.list article.player.card .column.body .player-stats {
+	display: grid !important;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+	gap: 1rem !important;
+	justify-items: center !important;
+	align-items: center !important;
+	width: 100% !important;
+	max-width: 600px !important;
+	margin: 0 auto !important;
+	text-align: center !important;
+}
+
+article.player .avatar-container,
+article.player.card section.column.body .avatar-container,
+article.page.list article.player.card section.column.body .avatar-container,
+article.player .player-header .avatar-container,
+article.player.card .player-header .avatar-container,
+article.page.list article.player.card .player-header .avatar-container {
+	position: relative !important;
+	flex-shrink: 0 !important;
+	display: flex !important;
+	justify-content: center !important;
+	align-items: center !important;
+	margin: 0 auto !important;
+}
+
+article.player .avatar-container img.avatar,
+article.player.card .avatar-container img.avatar,
+article.page.list article.player.card .avatar-container img.avatar,
+article.player .player-header .avatar-container img.avatar,
+article.player.card .player-header .avatar-container img.avatar,
+article.page.list article.player.card .player-header .avatar-container img.avatar {
+	display: block !important;
+	margin: 0 auto !important;
 }
 
 img.avatar {
